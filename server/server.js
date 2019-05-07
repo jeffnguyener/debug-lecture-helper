@@ -3,6 +3,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const messagesCtrl = require('./messagesCtrl');
 const session = require('express-session');
+const { SESSION_SECRET, SERVER_PORT } = process.env;
 
 const app = express();
 
@@ -13,6 +14,9 @@ app.use(
     saveUninitialized: false
   })
 );
+
+app.use(bodyParser.json());
+
 app.use((req, res, next) => {
   let badWords = ['knucklehead', 'jerk', 'internet explorer'];
   if (req.body.message) {
